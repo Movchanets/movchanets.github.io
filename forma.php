@@ -67,7 +67,7 @@
  </font>
  <hr>
  <H1 align = "center"><font color = "green">Реєстрація</font><H1>
-  <fotm action = "forma.php" method="post" onsubmit="return send();">
+  <form action = "forma.php" method="post" onsubmit="return send();">
    <TABLE align ="center" bgcolor= "#ccc">
     <TR>
      <TD> <font color = "green">Прізвище</font>:</TD>
@@ -79,30 +79,57 @@
      </TR>
     <TR>
      <TD> <font color = "green">E-Mail</font>:</TD>
-     <TD><input type="text" size="10" maxlength="20" name="email"></TD>
+     <TD><input type="text" size="20 maxlength="20" name="email"></TD>
      </TR>
     <TR>
      <TD> <font color = "green">Пароль</font>:</TD>
      <TD><input type="text" size="10" maxlength="20" name="password"></TD>
      </TR>
+	
     </TABLE>
-   <p align ="cenret">
+   <p align ="center">
    <input type="submit" value="Зареєструватись">  
-   <input type="reser" value="Очистити"> 
+   <input type="reset "value="Очистити"> 
    </p>
    </form>
- <hr>
-</td>
-<td width ="70%">
+   </td>
+
+<td width ="70%"  background ="images/bg.jpg" valign='top'>
 <h1 align ="center">Дякуємо за реєстрацію !</h1>
 <?php 
 $st = $_POST['name2'].";".$_POST['name1'].";".$_POST['nicl'].";".$_POST['email'].";".$_POST['password']."\n";
 $fp =fopen("baza.txt","a");
 $test =fwrite($fp,$st);
-echo "<h2 align ='center'>Ви ввели:".$_POST['name1'].";".$_POST['nicl'].";".$_POST['email'].";".$_POST['password']."</h2>"
+echo "<h2 align ='center'>Ви ввели:".$_POST['name1'].",".$_POST['nicl'].",".$_POST['email'].",".$_POST['password']."</h2>"
 ?>
 
+<font size ='5'>
+<h1 align="center">Список зареєстрованих !</h1>
+<TABLE align="center" border ="1" width="600">
+<td align="center"><b>Прізвище</b></td>
+<td align="center"><b>Ім'я</b></td>
+<td align="center"><b>E-Mail</b></td>
+<td align="center"><b>Пароль</b></td>
+
+
+ <?php 
+	 $data = file("baza.txt");
+	 foreach($data as $line)
+	 {
+		 $trs=explode(";",$line);
+		 echo '<tr>';
+		 echo '<td>'.$trs[0].'</td>';
+		 echo '<td>'.$trs[1].'</td>';
+		 echo '<td>'.$trs[2].'</td>';
+		 echo '<td>'.$trs[3].'</td>';
+	 echo '</tr>';
+	 }
+	 ?>
+	 </table>
+
+
 </td>
+
 </tr>
 <tr>
 <td background ="images/bg-3.jpg"colspan ="2" height ="90" valign = "middle">

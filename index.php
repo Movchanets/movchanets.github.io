@@ -67,7 +67,7 @@
  </font>
  <hr>
  <H1 align = "center"><font color = "green">Реєстрація</font><H1>
-  <fotm action = "forma.php" method="post" onsubmit="return send();">
+  <form action = "forma.php" method="post" onsubmit="return send();">
    <TABLE align ="center" bgcolor= "#ccc">
     <TR>
      <TD> <font color = "green">Прізвище</font>:</TD>
@@ -86,9 +86,9 @@
      <TD><input type="text" size="10" maxlength="20" name="password"></TD>
      </TR>
     </TABLE>
-   <p align ="cenret">
+   <p align ="center">
    <input type="submit" value="Зареєструватись">  
-   <input type="reser" value="Очистити"> 
+   <input type="reset"value="Очистити"> 
    </p>
    </form>
  <hr>
