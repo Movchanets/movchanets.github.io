@@ -31,6 +31,7 @@
  color:#210042;
  font-size:2 em;
  }
+ .big{transform:scale(2);}
  </style>
  </head>
 <body background = "images/bg.jpg">
@@ -137,7 +138,28 @@ $file = fopen($log_path,"a");
 fwrite($file,$log_string,strlen($log_string));
 fclose($file);
 ?>
+<H1 align="center">Фотогалерея</H1>
 <?php 
+function excess($files)
+{
+$result = array();
+for($i = 0;$i < count($files);$i++)
+{
+	if($files[$i]!="."&&$files[$i]!="..")$result[] = $files[$i];
+}	
+return result;
+}
+$dir = "pic"; 
+$files = scandir($dir);
+$files = excess($files);
+
+?>
+<?php for ($i=0;$i<count($files);$i++){?>
+<img src="<?=$dir."/".$files[$i]?>" alt ="" width = 350
+height ="250" hspace="5" vspace="7" border="5" onclick="this.classList.toggle('big')"/>
+<?php if(($i+1)%4==0){?><br /><?php } ?>
+<?php } ?>
+<?php
 echo '<h1 align="center">Хто до нас на сайт заходив !</h1>';
 echo '<TABLE align = "center" border ="1" width ="800">';
 echo '<tr>';
