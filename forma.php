@@ -89,7 +89,7 @@
     </TABLE>
    <p align ="center">
    <input type="submit" value="Зареєструватись">  
-   <input type="reset "value="Очистити"> 
+   <input type="reset"value="Очистити"> 
    </p>
    </form>
    </td>
@@ -99,8 +99,8 @@
 <?php 
 $st = $_POST['name2'].";".$_POST['name1'].";".$_POST['nicl'].";".$_POST['email'].";".$_POST['password']."\n";
 $fp =fopen("baza.txt","a");
-$test =fwrite($fp,$st);
-echo "<h2 align ='center'>Ви ввели:".$_POST['name1'].",".$_POST['nicl'].",".$_POST['email'].",".$_POST['password']."</h2>"
+$test =fwrite($fp,$st);//",".$_POST['nicl'].
+echo "<h2 align ='center'>Ви ввели:".$_POST['name1'].",".$_POST['email'].",".$_POST['password']."</h2>"
 ?>
 
 <font size ='5'>
@@ -127,7 +127,36 @@ echo "<h2 align ='center'>Ви ввели:".$_POST['name1'].",".$_POST['nicl']."
 	 ?>
 	 </table>
 
-
+<?php 
+$log_path = 'log.txt';
+$user_ip = getenv(REMOTE_ADDR);
+$user_brouser=getenv(HTTP_USER_AGENT);
+$curent_time=date("ymd H:i:s");
+$log_string="$user_ip|$user_brouser|$curent_time|\r\n";
+$file = fopen($log_path,"a");
+fwrite($file,$log_string,strlen($log_string));
+fclose($file);
+?>
+<?php 
+echo '<h1 align="center">Хто до нас на сайт заходив !</h1>';
+echo '<TABLE align = "center" border ="1" width ="800">';
+echo '<tr>';
+echo '<td align="center">IP Adress</td>';
+echo '<td align="center">Браузер</td>';
+echo '<td align="center">Дата</td>';
+echo '</tr>';
+$data = file("log.txt");
+foreach($data as $line)
+{
+$trs = explode("|",$line);
+echo '<tr>';
+echo '<td>'.$trs[0].'</td>';
+echo '<td>'.$trs[1].'</td>';
+echo '<td>'.$trs[2].'</td>';
+echo '</tr>';
+}
+echo '</table>'
+?>
 </td>
 
 </tr>
