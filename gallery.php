@@ -10,20 +10,24 @@
 	</script>
 	<script type="text/javascript">
 	function send()
-{	var valid =true;
+{	var valid = true;
 	var elems = document.forms[0].elements;
 	for(var i =0;i<document.forms[0].length;i++)
 	{
-		if(elems[i].getAttribute('type') == "text"||
-		elems[i].getAttribute('type') == "password"||
-		elems[i].getAttribute('type') == "email"|){
+		if(elems[i].getAttribute('type') == 'text' ||
+		elems[i].getAttribute('type') == 'password' ||
+		elems[i].getAttribute('type') == 'email'){
 		
-		if()(elems[i].value ==''){style.border ='2px solid red';
-		valid= false;
-		}}}
-	if(!valid)
-	{alert('Заповніть всі поля !!!');
-	return false;}
+		if(elems[i].value == ''){
+			elems[i].style.border = '2px solid red';
+		valid = false;
+		}
+		}
+	}
+	if(!valid) {
+		alert('Заповніть всі поля !!!');
+	return false;
+	}
 }
 	</script>
 <style>
@@ -31,7 +35,6 @@
  color:#210042;
  font-size:2 em;
  }
- .big{transform:scale(2);}
  </style>
  </head>
 <body background = "images/bg.jpg">
@@ -80,88 +83,44 @@
      </TR>
     <TR>
      <TD> <font color = "green">E-Mail</font>:</TD>
-     <TD><input type="text" size="16 maxlength="20" name="email"></TD>
+     <TD><input type="text" size="16" maxlength="20" name="email"></TD>
      </TR>
     <TR>
      <TD> <font color = "green">Пароль</font>:</TD>
      <TD><input type="text" size="16" maxlength="20" name="password"></TD>
      </TR>
-	
     </TABLE>
    <p align ="center">
    <input type="submit" value="Зареєструватись">  
    <input type="reset"value="Очистити"> 
    </p>
    </form>
-   </td>
-
-<td width ="70%" align = "center" background ="images/bg.jpg" valign='top'>
-<h1 align ="center">Дякуємо за реєстрацію !</h1>
-<?php //;".$_POST['nicl']
-$st = $_POST['name2'].";".$_POST['name1'].";".$_POST['email'].";".$_POST['password']."\n";
-$fp =fopen("baza.txt","a");
-$test =fwrite($fp,$st);//",".$_POST['nicl'].
-echo "<h2 align ='center'>Ви ввели:		".$_POST['name2'].",	".$_POST['name1'].",	".$_POST['email'].",	".$_POST['password']."</h2>"
-?>
-
-<font size ='5'>
-<h1 align="center">Список зареєстрованих !</h1>
-<TABLE align="center" border ="1" width="600">
-<td align="center"><b>Прізвище</b></td>
-<td align="center"><b>Ім'я</b></td>
-<td align="center"><b>E-Mail</b></td>
-<td align="center"><b>Пароль</b></td>
-
-
- <?php 
-	 $data = file("baza.txt");
-	 foreach($data as $line)
-	 {
-		 $trs=explode(";",$line);
-		 echo '<tr>';
-		 echo '<td>'.$trs[0].'</td>';
-		 echo '<td>'.$trs[1].'</td>';
-		 echo '<td>'.$trs[2].'</td>';
-		 echo '<td>'.$trs[3].'</td>';
-	 echo '</tr>';
-	 }
-	 ?>
-	 </table>
-
-<?php 
-$log_path = 'log.txt';
-$user_ip = getenv(REMOTE_ADDR);
-$user_bruser=getenv(HTTP_USER_AGENT);
-$curent_time=date("ymd H:i:s");
-$log_string="$user_ip|$user_brouser|$curent_time|\r\n";
-$file = fopen($log_path,"a");
-fwrite($file,$log_string,strlen($log_string));
-fclose($file);
-?>
-
-
-<?php
-echo '<h1 align="center">Хто до нас на сайт заходив !</h1>';
-echo '<TABLE align = "center" border ="1" width ="800">';
-echo '<tr>';
-echo '<td align="center">IP Adress</td>';
-echo '<td align="center">Браузер</td>';
-echo '<td align="center">Дата</td>';
-echo '</tr>';
-$data = file("log.txt");
-foreach($data as $line)
-{
-$trs = explode("|",$line);
-echo '<tr>';
-echo '<td>'.$trs[0].'</td>';
-echo '<td>'.$trs[1].'</td>';
-echo '<td>'.$trs[2].'</td>';
-echo '</tr>';
-}
-echo '</table>'
-?>
+ <hr>
 </td>
+<td width ="70%" align="center">
+<H1 align="center">Фотогалерея</H1>
+<?php 
+function excess($files)
+{
+$result = array();
+for($i = 0;$i < count($files);$i++)
+{
+	if($files[$i]!="." && $files[$i]!="..")$result[] = $files[$i];
+}	
+return $result;
+}
+$dir = "pic"; 
+$files = scandir($dir);
+$files = excess($files);
 
+?>
+<?php for ($i=0;$i<count($files);$i++){?>
+<img src="<?=$dir."/".$files[$i]?>" alt ="" width = "400"
+height ="250" hspace="5" vspace="7" border="5" onclick="this.classList.toggle('big')"/>
+<?php if(($i+1)%3==0){?><br /><?php } ?>
+<?php } ?>
+</td>
+</td>
 </tr>
 <tr>
 <td background ="images/bg-3.jpg"colspan ="2" height ="90" valign = "middle">
